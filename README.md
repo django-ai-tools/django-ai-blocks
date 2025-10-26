@@ -30,3 +30,46 @@ The block engine integrates with the Permissions and Workflow layers—enforcing
 
 # Long-Term Goal
 To evolve the system into an AI-assisted interface builder where blocks can be discovered, combined, and configured through natural language or contextual prompts—bridging the gap between business logic and user experience.
+
+## Installation
+
+Follow these steps to install and configure `django-ai-blocks` within your Django project:
+
+1. **Install the package and its dependencies** using pip, either from PyPI or a local source checkout:
+
+   ```bash
+   pip install django-ai-blocks
+   # or, from a local clone
+   pip install /path/to/django-ai-blocks
+   ```
+
+2. **Register the app and URLs** in your Django settings and root URLconf so Django loads the app configuration and workflow routes:
+
+   ```python
+   INSTALLED_APPS = [
+       # …
+       "django_ai_blocks",
+   ]
+
+   urlpatterns = [
+       # …
+       path("workflow/", include("django_ai_blocks.workflow.urls", namespace="workflow")),
+   ]
+   ```
+
+3. **Enable the permissions middleware (recommended)** to clear per-request permission caches used by the workflow layer:
+
+   ```python
+   MIDDLEWARE = [
+       # …
+       "django_ai_blocks.permissions.middleware.PermissionCacheMiddleware",
+   ]
+   ```
+
+4. **Apply database migrations** so the Block, Layout, Workflow, and related tables are created:
+
+   ```bash
+   python manage.py migrate
+   ```
+
+5. **Adjust optional configuration** as needed, such as `PERMISSIONS_STAFF_BYPASS`, fiscal year start, or custom block registrars, via standard Django settings overrides. The app will automatically load additional registrars listed under the `BLOCKS` setting during initialization.

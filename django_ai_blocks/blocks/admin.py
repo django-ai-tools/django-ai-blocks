@@ -4,10 +4,11 @@ from .models import (
     Block,
     BlockColumnConfig,
     BlockFilterConfig,
+    BlockFilterLayout,
+    BlockFilterLayoutTemplate,
     FieldDisplayRule,
     PivotConfig,
 )
-from django_ai_blocks.blocks.models.block_filter_layout import BlockFilterLayout
 
 @admin.register(Block)
 class WorkflowAdmin(admin.ModelAdmin):
@@ -37,9 +38,6 @@ class PivotConfigAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     list_filter = ("visibility",)
 
-# Template models (admin-defined defaults)
-from django_ai_blocks.blocks.models.config_templates import BlockFilterLayoutTemplate
-
 @admin.register(BlockFilterLayoutTemplate)
 class BlockFilterLayoutTemplateAdmin(admin.ModelAdmin):
     list_display = ("block",)
@@ -49,5 +47,3 @@ class BlockFilterLayoutTemplateAdmin(admin.ModelAdmin):
 class BlockFilterLayoutAdmin(admin.ModelAdmin):
     list_display = ("block", "user")
     search_fields = ("block__code", "block__name", "user__username")
-
-# (admins above already include visibility)

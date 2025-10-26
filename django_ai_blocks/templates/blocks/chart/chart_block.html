@@ -1,4 +1,4 @@
-{% load static dict_extras %}
+{% load static dict_extras block_urls %}
 <div class="js-layout-block-root" id="layout-block-{{ instance_id }}" data-instance-id="{{ instance_id }}" data-block-name="{{ block_name }}">
 {% if not embedded %}
   <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
@@ -6,7 +6,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div>
-    <a class="btn btn-link p-0" href="{% url 'blocks:render_chart_block' block_name %}">Chart Link</a>
+    <a class="btn btn-link p-0" href="{% block_url 'render_chart_block' block_name %}">Chart Link</a>
   </div>
   <div>
     <label class="me-2">Filter:</label>
@@ -21,7 +21,7 @@
         </optgroup>
       {% endfor %}
     </select>
-    <a class="btn btn-link p-0 ms-2" href="{% url 'blocks:chart_filter_config' block_name %}">Manage Filters</a>
+    <a class="btn btn-link p-0 ms-2" href="{% block_url 'chart_filter_config' block_name %}">Manage Filters</a>
   </div>
 </div>
 
@@ -49,9 +49,9 @@
     </summary>
     <div class="p-3">
       <div class="mb-2">
-        <a class="btn btn-link p-0" href="{% url 'blocks:filter_layout_view' block_name %}">Manage Filter Layout</a>
+        <a class="btn btn-link p-0" href="{% block_url 'filter_layout_view' block_name %}">Manage Filter Layout</a>
         {% if request.user.is_staff %}
-          <a class="btn btn-link p-0 ms-3" href="{% url 'blocks:admin_filter_layout_view' block_name %}">Manage Default Filter Layout</a>
+          <a class="btn btn-link p-0 ms-3" href="{% block_url 'admin_filter_layout_view' block_name %}">Manage Default Filter Layout</a>
         {% endif %}
       </div>
       {% include "components/filter_fields.html" with filter_schema=filter_schema initial_values=selected_filter_values filter_layout=filter_layout name_prefix=block_name|add:"__"|add:instance_id|add:"__filters." id_prefix=block_name|add:"-"|add:instance_id require_layout=True %}

@@ -1,4 +1,5 @@
 {% extends "layout/base.html" %}
+{% load block_urls %}
 {% block content %}
 
 <div class="main-container">
@@ -17,7 +18,7 @@
         </optgroup>
       {% endfor %}
     </select>
-    <a href="{% url 'blocks:pivot_config_view' block_name %}" class="btn btn-link btn-sm">Clear</a>
+    <a href="{% block_url 'pivot_config_view' block_name %}" class="btn btn-link btn-sm">Clear</a>
     {% if active_config %}<span class="ms-2 text-muted">Editing: <strong>{{ active_config.name }}</strong></span>{% endif %}
     <script>
       document.addEventListener('DOMContentLoaded', function(){

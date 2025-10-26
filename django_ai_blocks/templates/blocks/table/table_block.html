@@ -1,4 +1,4 @@
-{% load static dict_extras %}
+{% load static dict_extras block_urls %}
 <div class="js-layout-block-root" id="layout-block-{{ instance_id }}" data-instance-id="{{ instance_id }}" data-block-name="{{ block_name }}">
 {# SheetJS + jsPDF only when not embedded inside a layout to avoid duplicate script injections #}
 {% if not embedded %}
@@ -20,8 +20,8 @@
         </optgroup>
       {% endfor %}
     </select>
-    <a class="btn btn-link p-0" href="{% url 'blocks:column_config_view' block_name %}">Manage Views</a>
-    <a class="btn btn-link p-0 ms-2" href="{% url 'blocks:render_table_block' block_name %}">Table Link</a>
+    <a class="btn btn-link p-0" href="{% block_url 'column_config_view' block_name %}">Manage Views</a>
+    <a class="btn btn-link p-0 ms-2" href="{% block_url 'render_table_block' block_name %}">Table Link</a>
   </div>
   <div>
     <label class="me-2">Filter:</label>
@@ -36,7 +36,7 @@
         </optgroup>
       {% endfor %}
     </select>
-    <a class="btn btn-link p-0 ms-2" href="{% url 'blocks:table_filter_config' block_name %}">Manage Filters</a>
+    <a class="btn btn-link p-0 ms-2" href="{% block_url 'table_filter_config' block_name %}">Manage Filters</a>
     <button id="download-xlsx-{{ block_name }}-{{ instance_id }}" class="btn btn-outline-secondary btn-sm ms-3" type="button" title="Download as Excel">
       Download Excel
     </button>
@@ -76,9 +76,9 @@
     </summary>
     <div class="p-3">
       <div class="mb-2">
-        <a class="btn btn-link p-0" href="{% url 'blocks:filter_layout_view' block_name %}">Manage Filter Layout</a>
+        <a class="btn btn-link p-0" href="{% block_url 'filter_layout_view' block_name %}">Manage Filter Layout</a>
         {% if request.user.is_staff %}
-          <a class="btn btn-link p-0 ms-3" href="{% url 'blocks:admin_filter_layout_view' block_name %}">Manage Default Filter Layout</a>
+          <a class="btn btn-link p-0 ms-3" href="{% block_url 'admin_filter_layout_view' block_name %}">Manage Default Filter Layout</a>
         {% endif %}
       </div>
       {# Renders actual inputs based on your schema #}
@@ -157,7 +157,7 @@
       const field = cell.getField();
       const value = cell.getValue();
       if (id == null) { return; }
-      fetch("{% url 'blocks:inline_edit' block_name %}", {
+      fetch("{% block_url 'inline_edit' block_name %}", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({id, field, value}),

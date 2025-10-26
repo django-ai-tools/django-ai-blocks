@@ -1,5 +1,5 @@
 {% extends "layout/base.html" %}
-{% load static %}
+{% load static block_urls %}
 {% block content %}
 <h2>{% if admin_mode %}Manage Default Filter Layout{% else %}Manage Filter Layout{% endif %} for {{ display_title|default:block.name|default:block_name }}</h2>
 
@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<form id="layout-form" method="post" action="{% url 'blocks:filter_layout_view' block_name %}" class="mt-3">
+<form id="layout-form" method="post" action="{% block_url 'filter_layout_view' block_name %}" class="mt-3">
   {% csrf_token %}
   <input type="hidden" name="layout" id="layout-json-input" value="{}">
   <div class="d-flex gap-2">

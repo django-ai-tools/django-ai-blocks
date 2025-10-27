@@ -73,3 +73,24 @@ Follow these steps to install and configure `django-ai-blocks` within your Djang
    ```
 
 5. **Adjust optional configuration** as needed, such as `PERMISSIONS_STAFF_BYPASS`, fiscal year start, or custom block registrars, via standard Django settings overrides. The app will automatically load additional registrars listed under the `BLOCKS` setting during initialization.
+
+## Demo project
+
+A minimal Django project is provided under `examples/demo_project/` to make it easy to explore the library from a local checkout.
+
+1. **Install dependencies in editable mode** so the demo project uses the local source tree:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -e .
+   ```
+
+2. **Run migrations and start the server** using the project's manage script:
+
+   ```bash
+   python examples/demo_project/manage.py migrate
+   python examples/demo_project/manage.py runserver
+   ```
+
+3. **Access the admin** at <http://127.0.0.1:8000/admin/>. Create a superuser with `python examples/demo_project/manage.py createsuperuser` if needed.

@@ -35,7 +35,9 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
+# Keep distribution limited to the core library packages and exclude local examples.
 include = ["django_ai_blocks*"]
+exclude = ["examples*"]
 
 [tool.setuptools]
 include-package-data = true

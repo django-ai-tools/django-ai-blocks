@@ -15,6 +15,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from air_quality.models import Measurement, MonitoringSite, Pollutant, Region
+from air_quality.services import SiteAlertEvaluationService, ensure_demo_alert_rules
 
 LOGGER = logging.getLogger(__name__)
 
@@ -179,6 +180,7 @@ class Command(BaseCommand):
 
         pollutants_created = 0
         measurements_written = 0
+        alert_service = SiteAlertEvaluationService()
         pollutant_cache: Dict[str, Pollutant] = {
             pollutant.external_id: pollutant
             for pollutant in Pollutant.objects.all()
@@ -255,6 +257,11 @@ class Command(BaseCommand):
                 )
                 if created:
                     measurements_written += 1
+
+                alert_service.evaluate_measurement(measurement)
+
+        if ensure_demo_alert_rules():
+            alert_service.evaluate_recent_measurements(window=timedelta(days=1))
 
         return pollutants_created, measurements_written
 

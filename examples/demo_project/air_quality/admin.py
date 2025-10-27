@@ -49,3 +49,21 @@ class SiteAlertRuleAdmin(admin.ModelAdmin):
     list_filter = ("is_active", "comparison", "pollutant", "site__region")
     search_fields = ("name", "external_id")
     autocomplete_fields = ("site", "pollutant")
+
+
+@admin.register(models.SiteAlert)
+class SiteAlertAdmin(admin.ModelAdmin):
+    list_display = (
+        "rule",
+        "measurement",
+        "value",
+        "triggered_at",
+        "workflow_state",
+    )
+    list_filter = ("workflow_state", "rule__pollutant", "rule__site__region")
+    search_fields = (
+        "rule__name",
+        "rule__site__name",
+        "rule__pollutant__name",
+    )
+    autocomplete_fields = ("rule", "measurement")

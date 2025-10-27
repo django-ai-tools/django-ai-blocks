@@ -1,0 +1,86 @@
+{% load i18n %}
+<div class="monitoring-site-detail">
+  <form method="get" class="mb-3">
+    {% for key, value in request.GET.items %}
+      {% if key != site_query_param %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+      {% endif %}
+    {% endfor %}
+    <label for="site-select-{{ block_name }}" class="form-label fw-semibold">{% trans "Monitoring site" %}</label>
+    <select id="site-select-{{ block_name }}" name="{{ site_query_param }}" class="form-select" onchange="this.form.submit()">
+      {% for value, label in site_options %}
+        <option value="{{ value }}" {% if value == selected_site_id|stringformat:'s' %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  {% if selected_site %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title mb-1">{{ selected_site.name }}</h5>
+        <div class="text-muted small">{{ selected_site.region.name if selected_site.region }}{% if selected_site.location_description %} · {{ selected_site.location_description }}{% endif %}</div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-12 col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-uppercase text-muted small">{% trans "Most recent measurements" %}</h6>
+            {% if latest_measurements %}
+              <ul class="list-group list-group-flush">
+                {% for measurement in latest_measurements %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="fw-semibold">{{ measurement.pollutant.name }}</div>
+                      <div class="small text-muted">{{ measurement.measured_at|date:"Y-m-d H:i" }}</div>
+                    </div>
+                    <div class="text-end">
+                      <div class="fw-bold">{{ measurement.value }}</div>
+                      <div class="small text-muted">{{ measurement.pollutant.unit }}</div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted mb-0">{% trans "No measurements recorded for this site yet." %}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-uppercase text-muted small">{% trans "Latest reading by pollutant" %}</h6>
+            {% if latest_by_pollutant %}
+              <div class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">{% trans "Pollutant" %}</th>
+                      <th scope="col" class="text-end">{% trans "Value" %}</th>
+                      <th scope="col" class="text-end">{% trans "Recorded" %}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for measurement in latest_by_pollutant %}
+                      <tr>
+                        <td>{{ measurement.pollutant.name }}</td>
+                        <td class="text-end">{{ measurement.value }} {{ measurement.pollutant.unit }}</td>
+                        <td class="text-end small text-muted">{{ measurement.measured_at|date:"Y-m-d H:i" }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted mb-0">{% trans "No pollutant readings available." %}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p class="text-muted">{% trans "No monitoring sites are available yet." %}</p>
+  {% endif %}
+</div>

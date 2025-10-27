@@ -1,0 +1,50 @@
+{% load humanize %}
+<div class="js-layout-block-root" id="layout-block-{{ instance_id }}" data-instance-id="{{ instance_id }}" data-block-name="{{ block_name }}">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Active Alerts</h5>
+  </div>
+  {% if alerts %}
+    <div class="list-group">
+      {% for entry in alerts %}
+        {% with alert=entry.alert %}
+          <div class="list-group-item list-group-item-action">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="me-3">
+                <h6 class="mb-1">{{ alert.rule.name }}</h6>
+                <p class="mb-1 small text-muted">
+                  {{ alert.rule.site.name }} · {{ alert.rule.pollutant.name }}
+                </p>
+                <div class="fw-semibold">
+                  {{ alert.value }} {{ alert.rule.pollutant.unit }}
+                  <span class="badge bg-danger-subtle text-danger border border-danger-subtle ms-2">
+                    Threshold {{ alert.rule.get_comparison_display }} {{ alert.rule.threshold_value }}
+                  </span>
+                </div>
+                <div class="text-muted small">
+                  Triggered {{ alert.triggered_at|naturaltime }}
+                </div>
+                {% if alert.note %}
+                  <div class="mt-2 small">{{ alert.note }}</div>
+                {% endif %}
+              </div>
+              <div class="text-end">
+                {% if entry.actions %}
+                  {% for action in entry.actions %}
+                    <form method="post" action="{{ action.url }}" class="mb-2">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-outline-primary">{{ action.label }}</button>
+                    </form>
+                  {% endfor %}
+                {% else %}
+                  <span class="badge bg-secondary">No actions available</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endwith %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-success mb-0">No alerts are active right now. Enjoy the clean air!</div>
+  {% endif %}
+</div>

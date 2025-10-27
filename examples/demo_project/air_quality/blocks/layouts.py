@@ -14,6 +14,7 @@ from .tables import (
     LATEST_MEASUREMENTS_BLOCK_CODE,
     MONITORING_SITE_DIRECTORY_BLOCK_CODE,
 )
+from .alerts import ACTIVE_SITE_ALERTS_BLOCK_CODE
 from .details import MONITORING_SITE_DETAIL_BLOCK_CODE
 from .charts import POLLUTANT_TREND_BLOCK_CODE
 
@@ -45,9 +46,18 @@ class AirQualityDashboardLayout:
 
     block_specs: tuple[LayoutBlockSpec, ...] = (
         LayoutBlockSpec(
-            code=MONITORING_SITE_DIRECTORY_BLOCK_CODE,
+            code=ACTIVE_SITE_ALERTS_BLOCK_CODE,
             x=0,
             y=0,
+            w=12,
+            h=3,
+            title="Active Alerts",
+            note="Workflow-enabled triage actions for triggered thresholds.",
+        ),
+        LayoutBlockSpec(
+            code=MONITORING_SITE_DIRECTORY_BLOCK_CODE,
+            x=0,
+            y=3,
             w=6,
             h=5,
             title="Monitoring Sites",
@@ -55,7 +65,7 @@ class AirQualityDashboardLayout:
         LayoutBlockSpec(
             code=MONITORING_SITE_DETAIL_BLOCK_CODE,
             x=6,
-            y=0,
+            y=3,
             w=6,
             h=4,
             title="Selected Site Detail",
@@ -64,7 +74,7 @@ class AirQualityDashboardLayout:
         LayoutBlockSpec(
             code=LATEST_MEASUREMENTS_BLOCK_CODE,
             x=0,
-            y=5,
+            y=8,
             w=6,
             h=5,
             title="Latest Measurements",
@@ -72,7 +82,7 @@ class AirQualityDashboardLayout:
         LayoutBlockSpec(
             code=POLLUTANT_TREND_BLOCK_CODE,
             x=6,
-            y=4,
+            y=7,
             w=6,
             h=6,
             title="Pollutant Trend",

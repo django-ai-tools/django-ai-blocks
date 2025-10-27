@@ -117,7 +117,7 @@ class FilterConfigView(LoginRequiredMixin, FilterResolutionMixin, FormView):
                         visibility=visibility,
                     )
             except IntegrityError:
-                messages.error(self.request, "Filter name already taken. Please choose a different name.")
+                messages.error(self.request, "Block filter name already taken. Please choose a different name.")
         elif action == "delete" and config_id:
             # Allow delete if:
             # - owner of a private config, or

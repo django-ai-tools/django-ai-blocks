@@ -24,3 +24,5 @@ class BlockFilterConfig(BaseUserConfig):
                 name="unique_filter_config_per_user_block",
             )
         ]
+        verbose_name = "block filter"
+        verbose_name_plural = "block filters"

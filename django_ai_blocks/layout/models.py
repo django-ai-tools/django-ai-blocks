@@ -71,7 +71,7 @@ class LayoutBlock(models.Model):
     # When set, the layout will try to select the viewer's BlockFilterConfig
     # with this name for this block instance.
     preferred_filter_name = models.CharField(max_length=255, blank=True, default="")
-    # Optional per-instance default Block column config selection by name
+    # Optional per-instance default table setting selection by name
     # When set, the layout will try to select the viewer's BlockColumnConfig
     # with this name for this block instance.
     preferred_column_config_name = models.CharField(max_length=255, blank=True, default="")
@@ -123,6 +123,8 @@ class LayoutFilterConfig(models.Model):
                 name="unique_default_layout_filter_per_user",
             ),
         ]
+        verbose_name = "layout filter"
+        verbose_name_plural = "layout filters"
 
     def save(self, *args, **kwargs):  # noqa: D401 - behaviour documented here
         """Persist the configuration ensuring a single default per layout/user.

@@ -1,9 +1,9 @@
 """Common user configuration model for Blocks.
 
 This abstract model encapsulates fields and behaviour shared by user
-configuration models such as ``BlockColumnConfig`` and
-``BlockFilterConfig``.  The subclasses only need to declare their
-specific data payload (e.g. ``fields`` or ``values``).
+configuration models such as ``BlockColumnConfig`` (table settings) and
+``BlockFilterConfig`` (block filters).  The subclasses only need to
+declare their specific data payload (e.g. ``fields`` or ``values``).
 """
 
 from django_ai_blocks.conf import settings

@@ -1,4 +1,4 @@
-"""Utilities to seed Block and BlockColumnConfig records."""
+"""Utilities to seed Block and BlockColumnConfig (table setting) records."""
 
 from __future__ import annotations
 
@@ -49,20 +49,20 @@ def create_or_update_block_column_configs(
 
     for payload in definitions:
         data = _validate_mapping(
-            payload, "Column config definitions must be mappings."
+            payload, "Table setting definitions must be mappings."
         )
 
         block_identifier = data.pop("block", None)
         if block_identifier is None:
-            raise ValueError("Column config definition requires a 'block'.")
+            raise ValueError("Table setting definition requires a 'block'.")
 
         user_identifier = data.pop("user", None)
         if user_identifier is None:
-            raise ValueError("Column config definition requires a 'user'.")
+            raise ValueError("Table setting definition requires a 'user'.")
 
         name = data.pop("name", None)
         if not name:
-            raise ValueError("Column config definition requires a 'name'.")
+            raise ValueError("Table setting definition requires a 'name'.")
 
         fields = data.get("fields")
         if fields is not None:

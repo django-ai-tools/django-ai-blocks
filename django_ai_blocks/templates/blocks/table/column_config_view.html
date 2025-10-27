@@ -1,12 +1,12 @@
 {% extends "layout/base.html" %}
 {% block content %}
-<h2>Manage Column Configurations for {{ block_title }}</h2>
+<h2>Manage Table Settings for {{ block_title }}</h2>
 
 <!-- Dropdown to load/edit existing configs -->
 <div class="mb-3">
-  <label for="config-select">Select View:</label>
+  <label for="config-select">Select Setting:</label>
   <select id="config-select" class="form-select d-inline-block w-auto">
-    <option value="">-- New Configuration --</option>
+    <option value="">-- New Setting --</option>
     {% regroup configs by visibility as cfg_groups %}
     {% for grp in cfg_groups %}
       <optgroup label="{{ grp.grouper|title }}">
@@ -25,7 +25,7 @@
   <input type="hidden" name="config_id" id="config-id-input" value="">
 
   <div class="mb-3">
-    <label for="view-name">View Name:</label>
+    <label for="view-name">Setting Name:</label>
     <input type="text" name="name" id="view-name" required class="form-control d-inline-block w-auto">
     {% if request.user.is_staff %}
     <label class="ms-3">Visibility:</label>
@@ -34,7 +34,7 @@
       <option value="public">Public</option>
     </select>
     {% endif %}
-    <button type="submit" class="btn btn-primary">Save View</button>
+    <button type="submit" class="btn btn-primary">Save Setting</button>
   </div>
 
   <ul id="field-list" class="list-group">
@@ -52,7 +52,7 @@
 </form>
 
 <!-- Existing configs table -->
-<h3 class="mt-5">Saved Views</h3>
+<h3 class="mt-5">Saved Settings</h3>
 <table class="table mt-2">
   <thead>
     <tr>
@@ -124,7 +124,7 @@
     const visibility = (selectedOption.getAttribute('data-visibility') || '').toLowerCase();
     const ownerId = parseInt(selectedOption.getAttribute('data-owner-id') || '0');
 
-    viewNameInput.value = viewName === "-- New Configuration --" ? "" : viewName;
+    viewNameInput.value = viewName === "-- New Setting --" ? "" : viewName;
     idInput.value = this.value || '';
     if (visSelect) {
       const vis = selectedOption.getAttribute('data-visibility') || 'private';

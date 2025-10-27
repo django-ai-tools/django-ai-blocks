@@ -30,6 +30,8 @@ class BlockColumnConfig(BaseUserConfig):
                 name="unique_column_config_per_user_block",
             )
         ]
+        verbose_name = "table setting"
+        verbose_name_plural = "table settings"
 
     def delete(self, *args, **kwargs):
         """Allow deleting even the last private config for a user.

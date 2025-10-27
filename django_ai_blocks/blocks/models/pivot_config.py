@@ -33,3 +33,5 @@ class PivotConfig(BaseUserConfig):
                 name="unique_pivot_config_per_user_block",
             )
         ]
+        verbose_name = "pivot setting"
+        verbose_name_plural = "pivot settings"

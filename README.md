@@ -23,7 +23,7 @@ Layouts (or pages) organize blocks by drag/drop mechanism. A layout is a “scre
 Every block registers itself into a centralized registry, making it discoverable and plug-and-play. Domain apps contribute their own blocks via registration hooks.
 
 **User Personalization**
-Users can persist column configurations, filters, and view preferences through BlockColumnConfig and BlockFilterConfig, giving them a truly personalized experience.
+Users can persist table settings, filters, and view preferences through BlockColumnConfig and BlockFilterConfig, giving them a truly personalized experience.
 
 **Integrated Governance**
 The block engine integrates with the Permissions and Workflow layers—enforcing field-level visibility, edit rights, and state-based restrictions automatically.

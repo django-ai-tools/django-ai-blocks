@@ -1,13 +1,13 @@
 {% extends "layout/base.html" %}
 {% load dict_extras block_urls %}
 {% block content %}
-<h2>Manage Filters for {{ block_title }}</h2>
+<h2>Manage Block Filters for {{ block_title }}</h2>
 
 <!-- Dropdown to load/edit existing filters (no page reload) -->
 <div class="mb-3">
-  <label for="filter-select">Select Filter:</label>
+  <label for="filter-select">Select Block Filter:</label>
   <select id="filter-select" class="form-select d-inline-block w-auto">
-    <option value="">-- New Filter --</option>
+    <option value="">-- New Block Filter --</option>
     {% regroup configs by visibility as cfg_groups %}
     {% for grp in cfg_groups %}
       <optgroup label="{{ grp.grouper|title }}">
@@ -26,7 +26,7 @@
   <input type="hidden" name="action" value="create">
 
   <div class="mb-3">
-    <label for="filter-name">Filter Name:</label>
+    <label for="filter-name">Block Filter Name:</label>
     <input type="text" name="name" id="filter-name" required class="form-control d-inline-block w-auto">
     {% if request.user.is_staff %}
     <label class="ms-3">Visibility:</label>
@@ -35,7 +35,7 @@
       <option value="public">Public</option>
     </select>
     {% endif %}
-    <button type="submit" class="btn btn-primary">Save Filter</button>
+    <button type="submit" class="btn btn-primary">Save Block Filter</button>
   </div>
 
   <details class="border rounded mb-3" open>
@@ -49,7 +49,7 @@
 </form>
 
 <!-- Existing filters table -->
-<h3 class="mt-5">Saved Filters</h3>
+<h3 class="mt-5">Saved Block Filters</h3>
 <table class="table mt-2">
   <thead>
     <tr>
@@ -209,7 +209,7 @@
     const selectedId = select.value;
     const values = valuesById[selectedId] || {};
     clearFilterForm();
-    nameInput.value = name === '-- New Filter --' ? '' : name;
+    nameInput.value = name === '-- New Block Filter --' ? '' : name;
     populateFilterForm(values);
     // Read-only when non-admin selects non-owned public
     const vis = (opt?.getAttribute('data-visibility') || '').toLowerCase();

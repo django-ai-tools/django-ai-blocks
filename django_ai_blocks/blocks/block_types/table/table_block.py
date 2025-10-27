@@ -135,7 +135,7 @@ class TableBlock(BaseBlock, FilterResolutionMixin):
         return select_paths, prefetch_paths
 
     def get_column_defs(self, user, column_config=None):
-        """Default column defs based on active column config.
+        """Default column defs based on active table setting.
 
         Returns a list of {"field": <path>, "title": <label>} entries,
         where the label mirrors the Manage Columns UI's "Verbose Name"
@@ -207,7 +207,7 @@ class TableBlock(BaseBlock, FilterResolutionMixin):
         merged = {**defaults, **overrides}
         return merged
 
-    # ----- column config depth -----------------------------------------------
+    # ----- table setting depth -----------------------------------------------
     def get_column_config_max_depth(self) -> int:
         """Maximum ForeignKey traversal depth for Manage Columns.
 

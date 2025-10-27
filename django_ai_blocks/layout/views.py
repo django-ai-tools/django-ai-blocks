@@ -351,7 +351,7 @@ class LayoutEditView(LoginRequiredMixin, LayoutAccessMixin, LayoutFilterSchemaMi
                 widget.choices = choices
                 fld.widget = widget
                 form.initial["preferred_filter_name"] = getattr(form.instance, "preferred_filter_name", "")
-            # Column config choices
+            # Table setting choices
             col_names = []
             if block_obj:
                 col_names = list(
@@ -511,7 +511,7 @@ class LayoutFilterConfigView(LoginRequiredMixin, LayoutFilterSchemaMixin, FormVi
                         visibility=vis,
                     )
             except IntegrityError:
-                messages.error(self.request, "Filter name already taken. Please choose a different name.")
+                messages.error(self.request, "Layout filter name already taken. Please choose a different name.")
         elif action == "delete" and config_id:
             cfg = get_object_or_404(
                 LayoutFilterConfig, id=config_id, layout=self.layout, user=self.request.user, visibility=LayoutFilterConfig.VISIBILITY_PRIVATE

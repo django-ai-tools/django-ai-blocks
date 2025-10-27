@@ -1,12 +1,12 @@
 {% extends "layout/base.html" %}
 {% load dict_extras %}
 {% block content %}
-<h2>Manage Filters for {{ layout.name }}</h2>
+<h2>Manage Layout Filters for {{ layout.name }}</h2>
 
 <div class="mb-3">
-  <label for="filter-select">Select Filter:</label>
+  <label for="filter-select">Select Layout Filter:</label>
   <select id="filter-select" class="form-select d-inline-block w-auto">
-    <option value="">-- New Filter --</option>
+    <option value="">-- New Layout Filter --</option>
     {% regroup configs by visibility as cfg_groups %}
     {% for grp in cfg_groups %}
       <optgroup label="{{ grp.grouper|title }}">
@@ -24,7 +24,7 @@
   <input type="hidden" name="action" value="create">
 
   <div class="mb-3">
-    <label for="filter-name">Filter Name:</label>
+    <label for="filter-name">Layout Filter Name:</label>
     <input type="text" name="name" id="filter-name" required class="form-control d-inline-block w-auto">
     {% if request.user.is_staff %}
     <label class="ms-3">Visibility:</label>
@@ -33,7 +33,7 @@
       <option value="public">Public</option>
     </select>
     {% endif %}
-    <button type="submit" class="btn btn-primary">Save Filter</button>
+    <button type="submit" class="btn btn-primary">Save Layout Filter</button>
   </div>
 
   <details class="border rounded mb-3" open>
@@ -46,7 +46,7 @@
   </details>
 </form>
 
-<h3 class="mt-5">Saved Filters</h3>
+<h3 class="mt-5">Saved Layout Filters</h3>
 <table class="table mt-2">
   <thead>
     <tr>
@@ -199,7 +199,7 @@
     const selectedId = select.value;
     const values = valuesById[selectedId] || {};
     clearFilterForm();
-    nameInput.value = name === '-- New Filter --' ? '' : name;
+    nameInput.value = name === '-- New Layout Filter --' ? '' : name;
     populateFilterForm(values);
     // Read-only when non-admin selects non-owned public
     const vis = (opt?.getAttribute('data-visibility') || '').toLowerCase();

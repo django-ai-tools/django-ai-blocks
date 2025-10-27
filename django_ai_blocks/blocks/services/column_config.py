@@ -5,6 +5,7 @@ from django.db import models
 from .field_rules import get_field_display_rules
 
 def get_user_column_config(user, block):
+    """Return the active table setting (column configuration) for ``user``."""
     # Prefer user's private default; else a public default; else first private; else first public
     qs = BlockColumnConfig.objects.filter(block=block)
     config = (

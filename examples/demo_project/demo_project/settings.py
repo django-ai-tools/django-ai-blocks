@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_ai_blocks",
+    "examples.demo_project.air_quality",
 ]
 
 MIDDLEWARE = [

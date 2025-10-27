@@ -85,3 +85,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Register demo blocks with django-ai-blocks so they appear in the catalog.
+BLOCKS = [
+    "examples.demo_project.air_quality.blocks:register_air_quality_blocks",
+]
